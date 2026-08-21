@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accessibilityEventTypes="typeTouchInteractionStart|typeTouchInteractionEnd|typeWindowStateChanged"
-    android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagDefault"
-    android:notificationTimeout="100"
-    android:canRetrieveWindowContent="false"
-    android:summary="@string/a11y_summary"
-    android:description="@string/a11y_description" />

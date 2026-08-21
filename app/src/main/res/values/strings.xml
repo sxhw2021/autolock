@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">自动锁屏</string>
-    <string name="a11y_summary">检测屏幕触摸，超时未操作自动锁屏</string>
-    <string name="a11y_description">本服务仅用于检测您是否正在触摸屏幕（不读取任何屏幕内容），超过设定时长无触摸时自动关闭屏幕并锁定，防止游戏等常亮应用导致手机整夜亮屏。</string>
-    <string name="status_enabled">无障碍服务：已启用</string>
-    <string name="status_disabled">无障碍服务：未开启</string>
-    <string name="btn_enable_accessibility">去开启</string>
-    <string name="master_switch">自动锁屏总开关</string>
+    <string name="status_enabled">已启用</string>
+    <string name="status_disabled">已禁用</string>
+    <string name="master_switch">启用自动锁屏</string>
     <string name="timeout_label">超时时长（分钟，1–720）</string>
-    <string name="btn_save">保存时长</string>
+    <string name="btn_save">保存</string>
     <string name="toast_saved">已保存：%1$s 分钟</string>
-    <string name="toast_invalid">输入无效，请输入 1–720 的整数</string>
-    <string name="guide_title">保活指引</string>
-    <string name="guide_body">1. 点击下方「忽略电池优化」并在弹窗中选择允许\n2. 设置 → 电池 → 更多设置 → 找到「自动锁屏」→ 允许后台高耗电\n3. 最近任务卡片下拉 → 锁定「自动锁屏」\n4. 首次启动会请求 root 授权（用于内核级触摸监测），请允许\n5. 若无障碍被系统关闭，回到本页重新开启</string>
-    <string name="btn_battery">忽略电池优化</string>
-    <string name="notif_title">自动锁屏运行中</string>
-    <string name="notif_text">%1$s 分钟内无操作将自动锁屏</string>
-    <string name="channel_name">保活通知</string>
+    <string name="toast_invalid">请输入 1–720 的整数</string>
+    <string name="usage_title">使用方法</string>
+    <string name="usage_body">1. 安装本模块 APK\n2. 打开 LSPosed → 模块 → 自动锁屏 → 启用\n3. 作用域选择「系统框架」\n4. 重启手机生效\n5. 设置超时时长并启用</string>
 </resources>
