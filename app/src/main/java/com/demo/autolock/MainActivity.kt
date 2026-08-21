@@ -1,16 +1,17 @@
 package com.demo.autolock
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.switchmaterial.SwitchMaterial
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     private lateinit var prefs: SharedPreferences
 
@@ -18,11 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        @Suppress("DEPRECATION")
-        prefs = getSharedPreferences(PREFS_FILE, Context.MODE_WORLD_READABLE)
+        prefs = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
 
         val tvStatus = findViewById<TextView>(R.id.tvStatus)
-        val swEnabled = findViewById<SwitchMaterial>(R.id.swEnabled)
+        val swEnabled = findViewById<Switch>(R.id.swEnabled)
         val etTimeout = findViewById<EditText>(R.id.etTimeout)
         val btnSave = findViewById<Button>(R.id.btnSave)
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshStatus(tvStatus: TextView, enabled: Boolean) {
         tvStatus.text = getString(if (enabled) R.string.status_enabled else R.string.status_disabled)
-        tvStatus.setTextColor(getColor(if (enabled) R.color.status_ok else R.color.status_bad))
+        tvStatus.setTextColor(if (enabled) 0xFF1B873B.toInt() else 0xFFC62828.toInt())
     }
 
     companion object {
