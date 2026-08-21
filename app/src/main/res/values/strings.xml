@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">自动锁屏</string>
+    <string name="a11y_summary">检测屏幕触摸，超时未操作自动锁屏</string>
+    <string name="a11y_description">本服务仅用于检测您是否正在触摸屏幕（不读取任何屏幕内容），超过设定时长无触摸时自动关闭屏幕并锁定，防止游戏等常亮应用导致手机整夜亮屏。</string>
+    <string name="status_enabled">无障碍服务：已启用</string>
+    <string name="status_disabled">无障碍服务：未开启</string>
+    <string name="btn_enable_accessibility">去开启</string>
+    <string name="master_switch">自动锁屏总开关</string>
+    <string name="timeout_label">超时时长（分钟，1–720）</string>
+    <string name="btn_save">保存时长</string>
+    <string name="toast_saved">已保存：%1$s 分钟</string>
+    <string name="toast_invalid">输入无效，请输入 1–720 的整数</string>
+    <string name="guide_title">ColorOS 保活指引</string>
+    <string name="guide_body">1. 设置 → 电池 → 更多设置 → 找到「自动锁屏」→ 允许后台高耗电\n2. 最近任务卡片下拉 → 锁定「自动锁屏」\n3. 若无障碍开关被系统自动关闭，请回到本页面重新开启\n4. 手机已 root 时锁屏失败会自动尝试 su 命令兜底</string>
+</resources>
