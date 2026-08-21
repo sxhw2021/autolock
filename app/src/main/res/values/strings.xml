@@ -11,6 +11,10 @@
     <string name="btn_save">保存时长</string>
     <string name="toast_saved">已保存：%1$s 分钟</string>
     <string name="toast_invalid">输入无效，请输入 1–720 的整数</string>
-    <string name="guide_title">ColorOS 保活指引</string>
-    <string name="guide_body">1. 设置 → 电池 → 更多设置 → 找到「自动锁屏」→ 允许后台高耗电\n2. 最近任务卡片下拉 → 锁定「自动锁屏」\n3. 若无障碍开关被系统自动关闭，请回到本页面重新开启\n4. 手机已 root 时锁屏失败会自动尝试 su 命令兜底</string>
+    <string name="guide_title">保活指引</string>
+    <string name="guide_body">1. 点击下方「忽略电池优化」并在弹窗中选择允许\n2. 设置 → 电池 → 更多设置 → 找到「自动锁屏」→ 允许后台高耗电\n3. 最近任务卡片下拉 → 锁定「自动锁屏」\n4. 首次启动会请求 root 授权（用于内核级触摸监测），请允许\n5. 若无障碍被系统关闭，回到本页重新开启</string>
+    <string name="btn_battery">忽略电池优化</string>
+    <string name="notif_title">自动锁屏运行中</string>
+    <string name="notif_text">%1$s 分钟内无操作将自动锁屏</string>
+    <string name="channel_name">保活通知</string>
 </resources>
