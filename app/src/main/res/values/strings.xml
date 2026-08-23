@@ -9,5 +9,5 @@
     <string name="toast_saved">已保存：%1$s 分钟</string>
     <string name="toast_invalid">请输入 1–720 的整数</string>
     <string name="usage_title">使用方法</string>
-    <string name="usage_body">1. 安装本模块 APK\n2. 打开 LSPosed → 模块 → 自动锁屏 → 启用\n3. 作用域选择「系统框架」\n4. 重启手机生效\n5. 设置超时时长并启用</string>
+    <string name="usage_body">1. 安装本模块 APK\n2. 打开 LSPosed → 模块 → 自动锁屏 → 启用\n3. 作用域选择「系统框架」\n4. 重启手机生效\n5. 打开本 App 设置时长并启用</string>
 </resources>
