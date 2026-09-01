@@ -3,7 +3,6 @@ package com.demo.autolock
 import android.os.SystemClock
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -15,7 +14,6 @@ class XposedHook : IXposedHookLoadPackage {
     @Volatile private var timeoutMs = DEFAULT_TIMEOUT_MIN * 60_000L
     @Volatile private var enabled = true
 
-    private var prefs: XSharedPreferences? = null
     private var serviceInstance: Any? = null
     private var goToSleepMethod: Method? = null
     private var lastPrefsLoad = 0L
@@ -23,28 +21,41 @@ class XposedHook : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName != PKG_ANDROID) return
-        log("handleLoadPackage: ${lpparam.packageName}")
-        initPrefs()
-        loadSettings()
+        log("模块加载: ${lpparam.packageName}")
+        loadSettingsFromProvider()
         hookUserActivity(lpparam)
     }
 
-    private fun initPrefs() {
+    private fun loadSettingsFromProvider() {
         try {
-            prefs = XSharedPreferences(PKG_MODULE, PREFS_NAME)
-            prefs?.reload()
-            log("XSharedPreferences 加载成功")
+            val ctx = getSystemContext()
+            if (ctx == null) {
+                log("无法获取 system context，使用默认设置")
+                return
+            }
+            val cursor = ctx.contentResolver.query(
+                SettingsProvider.CONTENT_URI, null, null, null, null
+            )
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    enabled = it.getString(it.getColumnIndexOrThrow(SettingsProvider.KEY_ENABLED)).toBoolean()
+                    timeoutMs = it.getInt(it.getColumnIndexOrThrow(SettingsProvider.KEY_TIMEOUT)) * 60_000L
+                    log("设置读取成功: enabled=$enabled, timeout=${timeoutMs / 1000}s")
+                }
+            }
         } catch (e: Throwable) {
-            log("XSharedPreferences 加载失败: ${e.message}")
+            log("设置读取失败，使用默认值: ${e.message}")
         }
     }
 
-    private fun loadSettings() {
-        prefs?.let {
-            it.reload()
-            enabled = it.getBoolean(KEY_ENABLED, true)
-            timeoutMs = it.getInt(KEY_TIMEOUT, DEFAULT_TIMEOUT_MIN) * 60_000L
-            log("设置: enabled=$enabled, timeout=${timeoutMs / 1000}s")
+    private fun getSystemContext(): android.content.Context? {
+        return try {
+            val activityThread = Class.forName("android.app.ActivityThread")
+            val systemMain = activityThread.getMethod("systemMain").invoke(null)
+            val getSystemContext = activityThread.getMethod("getSystemContext")
+            getSystemContext.invoke(systemMain) as? android.content.Context
+        } catch (e: Throwable) {
+            null
         }
     }
 
@@ -75,7 +86,7 @@ class XposedHook : IXposedHookLoadPackage {
         val now = System.currentTimeMillis()
         if (now - lastPrefsLoad > PREFS_RELOAD_INTERVAL) {
             lastPrefsLoad = now
-            loadSettings()
+            loadSettingsFromProvider()
         }
         if (!enabled) return
         lastActivityTime = SystemClock.elapsedRealtime()
@@ -145,15 +156,11 @@ class XposedHook : IXposedHookLoadPackage {
     companion object {
         private const val TAG = "AutoLock"
         private const val PKG_ANDROID = "android"
-        private const val PKG_MODULE = "com.demo.autolock"
-        private const val PREFS_NAME = "settings"
         private const val CLASS_POWER_MANAGER_SERVICE =
             "com.android.server.power.PowerManagerService"
         private const val METHOD_USER_ACTIVITY = "userActivity"
         private const val METHOD_GO_TO_SLEEP = "goToSleep"
         private const val CMD_LOCK = "input keyevent 26"
-        private const val KEY_ENABLED = "enabled"
-        private const val KEY_TIMEOUT = "timeout_minutes"
         private const val DEFAULT_TIMEOUT_MIN = 5
         private const val PREFS_RELOAD_INTERVAL = 5000L
     }
