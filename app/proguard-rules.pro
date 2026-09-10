@@ -1,0 +1,2 @@
+-keep class com.demo.autolock.AutoLockModule { *; }
+-keep class com.demo.autolock.MainActivity { *; }
