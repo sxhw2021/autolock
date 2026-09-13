@@ -16,9 +16,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            shrinkResources false
         }
     }
     compileOptions {
@@ -39,5 +38,4 @@ android {
 
 dependencies {
     compileOnly 'io.github.libxposed:api:102.0.0'
-    compileOnly 'androidx.annotation:annotation:1.10.0'
 }
