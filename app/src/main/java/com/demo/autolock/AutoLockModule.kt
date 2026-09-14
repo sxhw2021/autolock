@@ -19,7 +19,7 @@ class AutoLockModule : XposedModule() {
     private var timerThread: Thread? = null
 
     private val userActivityHooker = Hooker { chain ->
-        serviceInstance = chain.instance
+        serviceInstance = chain.getThisObject()
         onUserActivity()
         chain.proceed()
     }
